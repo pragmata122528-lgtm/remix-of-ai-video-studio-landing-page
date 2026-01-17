@@ -1,154 +1,158 @@
 'use client'
 
-import { useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { Mail, MapPin, Linkedin, Send } from 'lucide-react'
 
 export function Contact() {
-
-  useEffect(() => {
-    // Load Cal.com embed script
-    const script = document.createElement('script')
-    script.type = 'text/javascript'
-    script.innerHTML = `
-      (function (C, A, L) { 
-        let p = function (a, ar) { a.q.push(ar); }; 
-        let d = C.document; 
-        C.Cal = C.Cal || function () { 
-          let cal = C.Cal; 
-          let ar = arguments; 
-          if (!cal.loaded) { 
-            cal.ns = {}; 
-            cal.q = cal.q || []; 
-            d.head.appendChild(d.createElement("script")).src = A; 
-            cal.loaded = true; 
-          } 
-          if (ar[0] === L) { 
-            const api = function () { p(api, arguments); }; 
-            const namespace = ar[1]; 
-            api.q = api.q || []; 
-            if(typeof namespace === "string"){
-              cal.ns[namespace] = cal.ns[namespace] || api;
-              p(cal.ns[namespace], ar);
-              p(cal, ["initNamespace", namespace]);
-            } else p(cal, ar); 
-            return;
-          } 
-          p(cal, ar); 
-        }; 
-      })(window, "https://app.cal.com/embed/embed.js", "init");
-      
-      Cal("init", "mojju-discovery-call", {origin:"https://app.cal.com"});
-      
-      Cal.ns["mojju-discovery-call"]("inline", {
-        elementOrSelector:"#my-cal-inline-mojju-discovery-call",
-        config: {"layout":"month_view"},
-        calLink: "mojli/30min",
-      });
-      
-      Cal.ns["mojju-discovery-call"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
-    `
-    
-    document.body.appendChild(script)
-    
-    return () => {
-      // Cleanup script on unmount
-      if (document.body.contains(script)) {
-        document.body.removeChild(script)
-      }
-    }
-  }, [])
-
   return (
-    <section id="contact" className="relative py-32 bg-card/30">
-      <div className="container mx-auto px-6 sm:px-8 lg:px-12">
+    <section id="contact" className="relative py-32 bg-gradient-to-b from-slate-900 to-slate-800">
+      {/* Decorative Background */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-0 w-96 h-96 bg-amber-400/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-400/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-3 h-3 bg-accent-emerald rounded-full animate-pulse" />
-            <span className="text-sm font-semibold text-muted-foreground">
-              Let's Create Together
+        <div className="text-center mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-3 mb-6"
+          >
+            <div className="w-3 h-3 bg-amber-400 rounded-full animate-pulse" />
+            <span className="text-sm font-semibold text-amber-400/80 tracking-widest uppercase">
+              Get in Touch
             </span>
-            <div className="w-3 h-3 bg-accent-blue rounded-full animate-pulse" />
-          </div>
+            <div className="w-3 h-3 bg-amber-400 rounded-full animate-pulse" />
+          </motion.div>
           
-          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black leading-tight mb-8">
-            <span className="block mb-2">Ready to Light Up the Screen?</span>
-            
-          </h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="text-5xl sm:text-6xl lg:text-7xl font-black leading-tight mb-8 text-slate-100"
+          >
+            <span className="block mb-2">Let's</span>
+            <span className="block text-amber-400">Connect</span>
+          </motion.h2>
           
-          <p className="text-2xl lg:text-3xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Book a discovery call to discuss your project and see how we can bring your vision to cinematic reality
-          </p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed"
+          >
+            Interested in collaboration or have questions about my research? I'd love to hear from you.
+          </motion.p>
         </div>
 
-        {/* Cal.com Booking Widget */}
-        <div className="max-w-5xl mx-auto">
-          <div className="bg-background clean-border rounded-3xl overflow-hidden elevated-shadow">
-            {/* Widget Header */}
-            <div className="bg-card/50 px-8 py-6 border-b border-border">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-xl font-black text-foreground mb-1">
-                    MOJJU Discovery Call
-                  </h3>
-                  <p className="text-muted-foreground">
-                    30 minutes • Video call • Free consultation
-                  </p>
-                </div>
-                <div className="hidden sm:flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-accent-emerald rounded-full" />
-                  <span className="text-sm text-muted-foreground font-medium">Available now</span>
-                </div>
+        {/* Contact Cards */}
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Email Card */}
+          <motion.a
+            href="mailto:asadshahzad0017@gmail.com"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="group block"
+          >
+            <div className="relative bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm rounded-2xl p-8 border border-amber-400/10 hover:border-amber-400/30 gentle-animation text-center h-full"
+                 style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.3)' }}>
+              
+              <div className="w-16 h-16 bg-amber-400/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-amber-400/20 gentle-animation">
+                <Mail className="w-8 h-8 text-amber-400" />
               </div>
+              
+              <h3 className="text-lg font-bold text-slate-100 mb-2 group-hover:text-amber-400 gentle-animation">
+                Email
+              </h3>
+              
+              <p className="text-slate-400 text-sm break-all">
+                asadshahzad0017@gmail.com
+              </p>
             </div>
-            
-            {/* Cal.com Embed Container */}
-            <div className="p-0 bg-white">
-              <div 
-                style={{
-                  width: '100%',
-                  height: '600px',
-                  overflow: 'scroll'
-                }} 
-                id="my-cal-inline-mojju-discovery-call"
-              />
+          </motion.a>
+
+          {/* Location Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="group"
+          >
+            <div className="relative bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm rounded-2xl p-8 border border-amber-400/10 text-center h-full"
+                 style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.3)' }}>
+              
+              <div className="w-16 h-16 bg-amber-400/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <MapPin className="w-8 h-8 text-amber-400" />
+              </div>
+              
+              <h3 className="text-lg font-bold text-slate-100 mb-2">
+                Location
+              </h3>
+              
+              <p className="text-slate-400 text-sm">
+                Narowal, Pakistan
+              </p>
             </div>
-          </div>
+          </motion.div>
+
+          {/* LinkedIn Card */}
+          <motion.a
+            href="https://linkedin.com/in/asad-shahzad"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="group block"
+          >
+            <div className="relative bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm rounded-2xl p-8 border border-amber-400/10 hover:border-amber-400/30 gentle-animation text-center h-full"
+                 style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.3)' }}>
+              
+              <div className="w-16 h-16 bg-amber-400/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-amber-400/20 gentle-animation">
+                <Linkedin className="w-8 h-8 text-amber-400" />
+              </div>
+              
+              <h3 className="text-lg font-bold text-slate-100 mb-2 group-hover:text-amber-400 gentle-animation">
+                LinkedIn
+              </h3>
+              
+              <p className="text-slate-400 text-sm">
+                linkedin.com/in/asad-shahzad
+              </p>
+            </div>
+          </motion.a>
         </div>
 
-        {/* Bottom Info */}
-        <div className="text-center mt-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="bg-background clean-border rounded-2xl p-6 subtle-shadow">
-              <div className="w-12 h-12 bg-accent-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <div className="w-6 h-6 bg-accent-blue rounded-full" />
-              </div>
-              <h4 className="font-black text-foreground mb-2">Project Discussion</h4>
-              <p className="text-muted-foreground text-sm">
-                Share your vision and requirements with our team
-              </p>
-            </div>
-            
-            <div className="bg-background clean-border rounded-2xl p-6 subtle-shadow">
-              <div className="w-12 h-12 bg-accent-emerald/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <div className="w-6 h-6 bg-accent-emerald rounded-full" />
-              </div>
-              <h4 className="font-black text-foreground mb-2">Custom Strategy</h4>
-              <p className="text-muted-foreground text-sm">
-                Get a tailored approach for your unique project
-              </p>
-            </div>
-            
-            <div className="bg-background clean-border rounded-2xl p-6 subtle-shadow">
-              <div className="w-12 h-12 bg-accent-purple/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <div className="w-6 h-6 bg-accent-purple rounded-full" />
-              </div>
-              <h4 className="font-black text-foreground mb-2">Next Steps</h4>
-              <p className="text-muted-foreground text-sm">
-                Clear timeline and roadmap to bring your idea to life
-              </p>
-            </div>
-          </div>
-        </div>
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="text-center mt-16"
+        >
+          <motion.a
+            href="mailto:asadshahzad0017@gmail.com"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold px-10 py-5 rounded-xl hover:from-amber-400 hover:to-amber-500 gentle-animation cursor-pointer text-lg"
+          >
+            <Send className="w-5 h-5" />
+            Send Me a Message
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   )
